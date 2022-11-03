@@ -25,5 +25,15 @@ def predict_api():
     print(output[0][0])
     return jsonify(output[0][0])
 
+@app.route('/predict',methods=['POST'])
+def predict():
+    data=request.form.values()
+    df2=pd.DataFrame([data],columns=['Date1'])
+    df3=df2['Date1'].astype('datetime64')
+    value=scaler.transform([df3])
+    output=model.predict(value)[0][0]
+
+    return render_template("home.html",prediction_text="The predicted Price of oil is {}".format(output))
+
 if __name__=="__main__":
     app.run(debug=True)
