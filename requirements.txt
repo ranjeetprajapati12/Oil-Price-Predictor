@@ -4,4 +4,11 @@ pandas
 numpy
 matplotlib
 seaborn
-gunicorn
+gunicorn==20.0.4
+certifi
+chardet
+click==7.1.2
+Flask=1.1.2
+Flask-Cors==3.0.9
+idna==2.10
+itsdangerous==1.1.0
