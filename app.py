@@ -2,6 +2,7 @@ import joblib
 from flask import Flask,request,app,jsonify,url_for,render_template
 import numpy as np
 import pandas as pd
+from flask_cors import CORS,cross_origin
 
 app=Flask(__name__)
 
@@ -9,11 +10,13 @@ model=joblib.load(open('Oil_Price_Prediction.pkl','rb'))
 scaler=joblib.load(open('opp.pkl','rb'))
 
 @app.route('/')
+@cross_origin()
 def home():
     return render_template('home.html')
 
 
 @app.route('/predict_api',methods=['POST'])
+@cross_origin()
 def predict_api():
     data=request.json['data']
     print(data)
@@ -26,6 +29,7 @@ def predict_api():
     return jsonify(output[0][0])
 
 @app.route('/predict',methods=['POST'])
+@cross_origin()
 def predict():
     data=request.form.values()
     df2=pd.DataFrame([data],columns=['Date1'])
